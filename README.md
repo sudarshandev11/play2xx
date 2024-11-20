@@ -1,180 +1,66 @@
-Here's a detailed **README.md** file for Ubuntu 20.04 setup that is formatted for ease of copying and use.
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
----
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-# Ubuntu 20.04 Setup Guide
+## About Laravel
 
-## Global Install
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-```bash
-# Update and install necessary packages
-sudo apt-get update
-sudo apt-get -y install software-properties-common curl unzip zip
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-# Add repositories for PHP and phpMyAdmin
-sudo add-apt-repository ppa:phpmyadmin/ppa -y
-sudo add-apt-repository ppa:ondrej/php -y
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-# Update packages and upgrade
-sudo apt-get update
-sudo apt-get --with-new-pkgs upgrade -y
+## Learning Laravel
 
-# Install PHP 7.4 and required extensions
-sudo apt-get install -y php7.4 php7.4-bcmath php7.4-ctype php7.4-fileinfo php7.4-json php7.4-mbstring php7.4-pdo php7.4-xml php7.4-tokenizer
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-# Install curl and PHP curl dependencies
-sudo apt-get install curl libcurl3 libcurl3-dev php7.4-curl -y
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-# Install other required packages
-sudo apt-get install php7.4-gd -y
-sudo apt-get install freetype* -y
-sudo apt-get install -y composer apache2 mysql-server
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-# Secure MySQL installation
-sudo mysql_secure_installation
-```
+## Laravel Sponsors
 
-## MySQL Setup
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-```bash
-# Access MySQL as root
-sudo mysql -u root
+### Premium Partners
 
-# Set root password and use MySQL native authentication
-USE mysql;
-UPDATE user SET authentication_string=PASSWORD("bX3rT3cU") WHERE User='root';
-UPDATE user SET plugin="mysql_native_password" WHERE User='root';
-FLUSH PRIVILEGES;
-quit
-```
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
 
-## phpMyAdmin Setup
+## Contributing
 
-```bash
-# Install phpMyAdmin (Select Apache during installation)
-sudo apt-get install -y phpmyadmin
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Node.js and pm2 Setup
+## Code of Conduct
 
-```bash
-# Install Node.js 10.x and pm2
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo npm i -g pm2
-```
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Upload Source Code and Setup Permissions
+## Security Vulnerabilities
 
-```bash
-# Navigate to /var/www/html and upload your source code (assuming via unzip)
-cd /var/www/html
-sudo unzip archive_name.zip
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-# Set proper permissions for storage and bootstrap directories
-sudo chmod -R 777 /var/www/html/storage
-sudo chmod -R 777 /var/www/html/bootstrap
+## License
 
-# Install Composer globally
-curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer
-```
-
-## SSL Installation
-
-```bash
-# Install Certbot for SSL and configure it with Apache
-sudo apt install certbot python3-certbot-apache -y
-sudo systemctl reload apache2
-sudo certbot --apache
-
-# Follow the steps:
-# - First stage: Enter your email
-# - Second stage: Press A
-# - Third stage: Press Y
-# - Fourth stage: Enter your domain name without slashes and protocols, e.g., urdomain.com
-
-# Check the status of certbot timer
-sudo systemctl status certbot.timer
-```
-
-## Apache Configuration
-
-```bash
-# Edit the Apache configuration files to point to your public directory
-
-# Open and edit the following files:
-# - /etc/apache2/sites-available/000-default.conf
-# - /etc/apache2/sites-available/000-default-le-ssl.conf
-
-# Replace the line:
-DocumentRoot /var/www/html
-
-# With:
-DocumentRoot /var/www/html/public
-<Directory /var/www/html/public>
-    Options Indexes FollowSymLinks
-    AllowOverride All
-    Require all granted
-</Directory>
-
-# Enable Apache rewrite module and restart the service
-sudo a2enmod rewrite
-sudo service apache2 restart
-```
-
-## Node & npm Configuration
-
-```bash
-# Navigate to the project directory
-cd /var/www/html
-
-# Install npm and required packages
-sudo apt-get install npm -y
-sudo npm install --save -g pm2 express http https xss-filters crypto mathjs socket.io fs
-
-# Modify domain in app.js file
-# Change the following line:
-domain = __LOCALHOST ? 'http://localhost' : 'http://your_domen.com';
-
-# Start the Node.js app using pm2
-pm2 start app.js
-```
-
-## Startup Project
-
-```bash
-# Update environment variables in the .env file
-nano /var/www/html/.env
-
-# Set the following values:
-APP_DEBUG=false
-DB_DATABASE=name_of_your_database
-DB_USERNAME=your_database_username
-DB_PASSWORD=your_database_password
-
-# Modify port in app.js (secure port)
-nano /var/www/html/public/js/app.js
-
-# Change the port from 49299 to 8443 (or the port you are using):
-# Example:
-const port = 8443;
-
-# Save and exit
-
-# Laravel Artisan Commands (if using Laravel)
-php artisan config:cache
-php artisan optimize
-php artisan view:cache
-```
-
-## Final Setup
-
-```bash
-# After completing all steps, visit your site and set the default settings in the admin page settings.
-# Your setup should now be complete.
-```
-
----
-
-With this **README.md**, you can follow along to set up the server on Ubuntu 20.04, ensuring that all commands are properly formatted for easy copy-paste usage.
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
